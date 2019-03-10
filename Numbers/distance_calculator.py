@@ -1,3 +1,4 @@
+import geopy
 from geopy.geocoders import Nominatim
 from tkinter import Tk, Frame, StringVar, Entry, Label, OptionMenu, Button, END, Spinbox
 from geopy.distance import geodesic
