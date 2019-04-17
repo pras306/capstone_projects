@@ -31,10 +31,28 @@ def validate_card():
         # Drop last digit as it is check digit
         last_digit = int(card_number[-1])
         card_number = card_number[0:15]
+        #Multiply digits in odd poitions by 2 and if product is greater than 10, sum the digits
         odd_digits = list(int(d) for d in str(int(card_number[0::2])))
-        # for d in odd_digits:
-
-    pass
+        even_digits = list(int(d) for d in str(int(card_number[1::2])))
+        new_odd_digits = []
+        for d in odd_digits:
+            new_d = str(int(d) * 2)
+            if len(new_d) > 1:
+                sum_of_digits = sum(list(int(digit) for digit in new_d))
+                new_odd_digits.append(str(sum_of_digits))
+            else:
+                new_odd_digits.append(new_d)    
+        #Add all the numbers
+        sum_of_all_digits = sum(list(int(odd_digit) for odd_digit in new_odd_digits )) + sum(list(int(even_digit) for even_digit in even_digits ))
+        modulo_ten = sum_of_all_digits % 10
+        check_digit = 10 - modulo_ten
+        #Compare with the last digit        
+        if last_digit == check_digit:
+            answer_input.delete(0,END)
+            answer_input.insert(0,'Entered card number is valid')
+        else:
+            answer_input.delete(0,END)
+            answer_input.insert(0,'Entered card number is  not valid')
 
 submit_button = Button(frame,text='Submit',width=10,command=validate_card)
 submit_button.grid(row=1,column=2)
